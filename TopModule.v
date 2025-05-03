@@ -29,11 +29,8 @@ module TopModule(
 		cnt=cnt+1;
 	end
 	
-	iprom u1(.address(cnt+5), .clock(CLK1), .q(HEX0));
-    iprom u2(.address(cnt+4), .clock(CLK1), .q(HEX1));
-    iprom u3(.address(cnt+3), .clock(CLK1), .q(HEX2));
-    iprom u4(.address(cnt+2), .clock(CLK1), .q(HEX3));
-    iprom u5(.address(cnt+1), .clock(CLK1), .q(HEX4));
-    iprom u6(.address(cnt  ), .clock(CLK1), .q(HEX5));
+    wire [31:0] mem_out;
+    iprom u6(.address(cnt), .clock(CLK1), .q(mem_out));
+    assign HEX0 = mem_out[7:0];
 	
 endmodule
