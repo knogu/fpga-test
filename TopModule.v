@@ -29,11 +29,11 @@ module TopModule(
 		cnt=cnt+1;
 	end
 	
-	m_rom u1(cnt+5,HEX0);
-	m_rom u2(cnt+4,HEX1);
-	m_rom u3(cnt+3,HEX2);
-	m_rom u4(cnt+2,HEX3);
-	m_rom u5(cnt+1,HEX4);
-	m_rom u6(cnt,HEX5);
+	iprom u1(.address(cnt+5), .clock(CLK1), .q(HEX0));
+    iprom u2(.address(cnt+4), .clock(CLK1), .q(HEX1));
+    iprom u3(.address(cnt+3), .clock(CLK1), .q(HEX2));
+    iprom u4(.address(cnt+2), .clock(CLK1), .q(HEX3));
+    iprom u5(.address(cnt+1), .clock(CLK1), .q(HEX4));
+    iprom u6(.address(cnt  ), .clock(CLK1), .q(HEX5));
 	
 endmodule
