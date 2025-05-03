@@ -18,15 +18,17 @@ module TopModule(
 
 	);
 	reg [3:0] cnt;
-	wire w_btn0;
-	wire bnt;
+	// wire w_btn0;
 	
-	m_chattering u0(CLK1,BTN[0],w_btn0);
-	assign btn=~w_btn0;
+	// m_chattering u0(CLK1,BTN[0],w_btn0);
+	// assign btn=~w_btn0;
+    wire c1,c2;
+    m_prescale50000 u0(CLK1, c1);
+    m_prescale1000 u1(CLK1, c1, c2);
 	assign LED={6'h0,cnt};
 	
-	always @(posedge btn) begin
-		cnt=cnt+1;
+	always @(posedge c2) begin
+		cnt = (cnt+1) < 16 ? cnt+1 : 0;
 	end
 	
     wire [31:0] mem_out;
