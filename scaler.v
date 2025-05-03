@@ -16,19 +16,22 @@ endmodule
 	
 
 //1/100 PreScaler
-module m_prescale1000(input clk,input c_in,output c_out);
-	reg [10:0] cnt;
-	wire wcout;
-	
-	assign wcout=(cnt==11'd999) ? 1'b1 : 1'b0;
-	assign c_out=(wcout & c_in);
-	
-	always @(posedge clk) begin
-		if(c_in==1'b1) begin
-			if(wcout==1'b1)
-				cnt=0;
-			else
-				cnt=cnt+1;
-		end
-	end
+module m_prescale1000(input clk, input c_in, output reg c_out);
+    reg [10:0] cnt;
+    reg prev_cin;
+
+    always @(posedge clk) begin
+        c_out <= 1'b0; // デフォルトではLOWにしておく
+        prev_cin <= c_in;
+
+        // c_in の立ち上がりを検出
+        if (~prev_cin & c_in) begin
+            if (cnt == 999) begin
+                cnt <= 0;
+                c_out <= 1'b1; // 1クロックだけHIGH
+            end else begin
+                cnt <= cnt + 1;
+            end
+        end
+    end
 endmodule
