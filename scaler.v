@@ -20,7 +20,7 @@ module m_prescale1000(input clk,input c_in,output c_out);
 	reg [10:0] cnt;
 	wire wcout;
 	
-	assign wcout=(cnt==7'd999) ? 1'b1 : 1'b0;
+	assign wcout=(cnt==11'd999) ? 1'b1 : 1'b0;
 	assign c_out=(wcout & c_in);
 	
 	always @(posedge clk) begin
